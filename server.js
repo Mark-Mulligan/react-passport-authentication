@@ -13,10 +13,30 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
+
 app.use(session({
   sercret: process.env.SECRET,
-  resave: true
+  resave: true,
+  saveUnintialized: true
 }))
+
+app.use(cookieParser(process.env.SECRET));
+
+app.post("/login", (req, res) => {
+  console.log(req.body);
+})
+
+app.post("/register", (req, res) => {
+  console.log(req.body);
+})
+
+app.get("/user", (req, res) => {
+  
+})
 
 app.listen(4000, () => {
   console.log('Server has started')
