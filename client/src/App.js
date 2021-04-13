@@ -17,7 +17,7 @@ function App() {
           password
         },
         withCredentials: true,
-        url: 'http://localhost:4000/register'
+        url: 'http://localhost:4000/login'
       }).then((res) => {
         console.log(res.data);
       })
@@ -30,7 +30,7 @@ function App() {
           password
         },
         withCredentials: true,
-        url: 'http://localhost:4000/login'
+        url: 'http://localhost:4000/register'
       }).then((res) => {
         console.log(res.data);
       })

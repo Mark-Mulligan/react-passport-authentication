@@ -9,29 +9,48 @@ const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 
+const connectDB = require("./config/db");
+const User = require("./models/User");
 const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({
-  origin: '*',
+  origin: 'http://localhost:3000',
   credentials: true
 }));
+ 
 
 app.use(session({
-  sercret: process.env.SECRET,
+  secret: process.env.SECRET,
   resave: true,
-  saveUnintialized: true
+  saveUninitialized: true
 }))
 
 app.use(cookieParser(process.env.SECRET));
+
+connectDB();
 
 app.post("/login", (req, res) => {
   console.log(req.body);
 })
 
 app.post("/register", (req, res) => {
-  console.log(req.body);
+  const { username, password } = req.body; 
+
+  User.findOne({ username: username }, async (err, doc) => {
+    if (err) throw err;
+    if (doc) res.send('User already exsits');
+    if (!doc) {
+      const newUser = new User({
+        username: username,
+        password: password
+      })
+
+      await newUser.save();
+      res.send("User Created");
+    }
+  })
 })
 
 app.get("/user", (req, res) => {
