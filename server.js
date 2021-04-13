@@ -42,9 +42,11 @@ app.post("/register", (req, res) => {
     if (err) throw err;
     if (doc) res.send('User already exsits');
     if (!doc) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+
       const newUser = new User({
         username: username,
-        password: password
+        password: hashedPassword
       })
 
       await newUser.save();
