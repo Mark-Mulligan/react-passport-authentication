@@ -70,7 +70,7 @@ app.post("/register", (req, res) => {
 
 app.get("/user", (req, res) => {
   console.log('user route hit');
-  console.log(req.user);
+  console.log(req.isAuthenticated());
   res.send(req.user);
 })
 
