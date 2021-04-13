@@ -14,6 +14,10 @@ function App() {
     }
   };
 
+  const getUser = () => {
+    
+  }
+
   const handleFormSwitch = () => {
     setLoginForm(!loginForm);
     setUsername('');
@@ -47,6 +51,10 @@ function App() {
         <button type="submit">{loginForm ? "Login" : "Register"}</button>
         <button type="button" onClick={handleFormSwitch}>{loginForm ? "Sign up?" : "Go to Login"}</button>
       </form>
+
+      <div className="mt-5">
+        <button onClick={getUser}>Get User</button>
+      </div>
     </div>
   );
 }
