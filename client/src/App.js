@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from 'axios';
 
 function App() {
   const [username, setUsername] = useState("");
@@ -9,13 +10,39 @@ function App() {
     e.preventDefault();
     if (loginForm) {
       console.log("login: " + username, password);
+      axios({
+        method: 'post',
+        data: {
+          username,
+          password
+        },
+        withCredentials: true,
+        url: 'http://localhost:4000/register'
+      }).then((res) => {
+        console.log(res.data);
+      })
     } else {
       console.log("register: " + username, password);
+      axios({
+        method: 'post',
+        data: {
+          username,
+          password
+        },
+        withCredentials: true,
+        url: 'http://localhost:4000/login'
+      }).then((res) => {
+        console.log(res.data);
+      })
     }
   };
 
   const getUser = () => {
-    
+    axios({
+      method: 'get',
+      withCredentials: true,
+      url: 'http://localhost:4000/getuser'
+    })
   }
 
   const handleFormSwitch = () => {
