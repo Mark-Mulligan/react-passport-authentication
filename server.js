@@ -35,8 +35,17 @@ require('./config/passport')(passport);
 
 connectDB();
 
-app.post("/login", (req, res) => {
-  console.log(req.body);
+app.post("/login", (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) throw err;
+    if (!user) res.send('No User Exsists');
+    else {
+      req.login(user, error => {
+        if (error) throw error;
+        res.send('User logged in');
+      })
+    }
+  })(req, res, next)
 })
 
 app.post("/register", (req, res) => {
@@ -60,7 +69,9 @@ app.post("/register", (req, res) => {
 })
 
 app.get("/user", (req, res) => {
-  
+  console.log('user route hit');
+  console.log(req.user);
+  res.send(req.user);
 })
 
 app.listen(4000, () => {

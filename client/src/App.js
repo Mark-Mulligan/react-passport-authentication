@@ -41,7 +41,9 @@ function App() {
     axios({
       method: 'get',
       withCredentials: true,
-      url: 'http://localhost:4000/getuser'
+      url: 'http://localhost:4000/user'
+    }).then(res => {
+      console.log(res.data);
     })
   }
 
