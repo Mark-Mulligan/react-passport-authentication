@@ -29,6 +29,10 @@ app.use(session({
 
 app.use(cookieParser(process.env.SECRET));
 
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
+
 connectDB();
 
 app.post("/login", (req, res) => {
